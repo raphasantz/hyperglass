@@ -10,9 +10,9 @@ from .common import CommandSet, CommandGroup
 class _IPv4(CommandSet):
     """Default commands for ipv4 commands."""
 
-    bgp_community: StrictStr = "display bgp routing-table regular-expression {target}"
+    bgp_community: StrictStr = "display bgp routing-table community {target} | no-more"
     bgp_aspath: StrictStr = "display bgp routing-table regular-expression {target}"
-    bgp_route: StrictStr = "display bgp routing-table {target}"
+    bgp_route: StrictStr = "display bgp routing-table {target} | no-more"
     ping: StrictStr = "ping -c 5 -a {source} {target}"
     traceroute: StrictStr = "tracert -q 2 -f 1 -a {source} {target}"
 
@@ -20,9 +20,9 @@ class _IPv4(CommandSet):
 class _IPv6(CommandSet):
     """Default commands for ipv6 commands."""
 
-    bgp_community: StrictStr = "display bgp ipv6 routing-table community {target}"
+    bgp_community: StrictStr = "display bgp ipv6 routing-table community {target} | no-more"
     bgp_aspath: StrictStr = "display bgp ipv6 routing-table regular-expression {target}"
-    bgp_route: StrictStr = "display bgp ipv6 routing-table {target}"
+    bgp_route: StrictStr = "display bgp ipv6 routing-table {target} | no-more"
     ping: StrictStr = "ping ipv6 -c 5 -a {source} {target}"
     traceroute: StrictStr = "tracert ipv6 -q 2 -f 1 -a {source} {target}"
 

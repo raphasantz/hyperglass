@@ -36,8 +36,8 @@ class Construct:
             self.transport = "rest"
 
         # Remove slashes from target for required platforms
-        if self.device.nos in TARGET_FORMAT_SPACE:
-            self.target = re.sub(r"\/", r" ", str(self.query_data.query_target))
+        #if self.device.nos in TARGET_FORMAT_SPACE:
+        #    self.target = re.sub(r"\/", r" ", str(self.query_data.query_target))
 
         # Set AFIs for based on query type
         if self.query_data.query_type in ("bgp_route", "ping", "traceroute"):
@@ -64,7 +64,19 @@ class Construct:
             ]
 
         with Formatter(self.device.nos, self.query_data.query_type) as formatter:
-            self.target = formatter(self.query_data.query_target)
+            log.debug("========================================================================================")
+            log.debug("VALOR1 '{}' VALOR2 '{}'", self.device.nos, self.query_data.query_type)
+            if self.device.nos in TARGET_FORMAT_SPACE:
+                log.debug("=1=======================================================================================")
+                if self.query_data.query_type == "bgp_route":
+                    log.debug("=1.1=======================================================================================")
+                    self.target = re.sub(r"/", r" ", str(self.query_data.query_target))
+                else:
+                    log.debug("=1.2=======================================================================================")
+                    self.target = formatter(self.query_data.query_target)
+            else:
+                log.debug("=2=======================================================================================")
+                self.target = formatter(self.query_data.query_target)
 
     def json(self, afi):
         """Return JSON version of validated query for REST devices."""

@@ -1,8 +1,10 @@
 #!/usr/bin/env bash
 
+apt install wget unzip zip git curl -y
+
 set -e
 
-# HYPERGLASS_VERSION="1.0.0b42"
+# HYPERGLASS_VERSION="1.0.4"
 
 MIN_PYTHON_MAJOR="3"
 MIN_PYTHON_MINOR="6"
@@ -285,7 +287,7 @@ yarn_brew() {
 }
 
 python_apt() {
-    apt-get install -y python3-dev python3-pip >/dev/null
+    apt install -y python3-dev python3-pip python3-pil python3-pil.imagetk python3-libtiff python3-glymur libtiff-dev libfreetype-dev liblcms2-2 liblcms2-utils libwebp-dev libboost-dev libimagequant-dev libraqm-dev libjpeg-dev >/dev/null
     sleep 1
     python_post $?
 }
@@ -422,15 +424,19 @@ install_redis() {
 install_app() {
     echo "[INFO] Installing hyperglass..."
 
-    curl -sSL https://raw.githubusercontent.com/python-poetry/poetry/master/get-poetry.py -o /tmp/get-poetry.py
-    python3 /tmp/get-poetry.py -f -y >/dev/null
-    sleep 1
-    source $HOME/.profile
+    #curl -sSL https://raw.githubusercontent.com/python-poetry/poetry/master/get-poetry.py -o /tmp/get-poetry.py
+    #curl -sSL https://install.python-poetry.org | POETRY_HOME=/opt/poetry python3 -
+    #python3 /tmp/get-poetry.py -f -y >/dev/null
+    #sleep 1
+    #source $HOME/.profile
+
+    curl -sSL https://install.python-poetry.org | POETRY_HOME=/opt/poetry python3 -
+    export PATH="/opt/poetry/bin:$PATH"
 
     [ -d "/tmp/hyperglass" ] && rm -rf /tmp/hyperglass
     [ -d "/tmp/build" ] && rm -rf /tmp/build
 
-    git clone --branch v1.0.0 --depth 1 https://github.com/thatmattlove/hyperglass.git /tmp/hyperglass
+    git clone https://github.com/remontti/hyperglass.git /tmp/hyperglass
     cd /tmp/hyperglass
     poetry build
     mkdir /tmp/build

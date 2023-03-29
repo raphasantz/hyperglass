@@ -114,10 +114,16 @@ def _extract_route_entries(lines: List[str]) -> List[Dict]:
                 qos = remove_prefix(info, "Qos information : ")
             elif info.startswith("Community:"):
                 communities = remove_prefix(info, "Community: ").split(", ")
+                for i in range(len(communities)):
+                    communities[i] = communities[i].replace('<', '').replace('>', '')
             elif info.startswith("Large-Community:"):
                 large_communities = remove_prefix(info, "Large-Community: ").split(", ")
+                for i in range(len(large_communities)):
+                    large_communities[i] = large_communities[i].replace('<', '').replace('>', '')
             elif info.startswith("Ext-Community:"):
                 ext_communities = remove_prefix(info, "Ext-Community: ").split(", ")
+                for i in range(len(ext_communities)):
+                    ext_communities[i] = ext_communities[i].replace('<', '').replace('>', '')
             elif info.startswith("AS-path"):
                 values = info.split(",")
                 for v in values:
@@ -176,7 +182,6 @@ def _extract_route_entries(lines: List[str]) -> List[Dict]:
         )
 
     return routes
-
 
 def parse_huawei(output: Sequence[str]) -> Dict:  # noqa: C901
     """Parse a Huawei BGP response."""

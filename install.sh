@@ -1,7 +1,5 @@
 #!/usr/bin/env bash
 
-apt install wget unzip zip git curl -y
-
 set -e
 
 # HYPERGLASS_VERSION="1.0.4"

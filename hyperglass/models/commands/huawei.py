@@ -13,8 +13,8 @@ class _IPv4(CommandSet):
     bgp_community: StrictStr = "display bgp routing-table community {target} | no-more"
     bgp_aspath: StrictStr = "display bgp routing-table regular-expression {target}"
     bgp_route: StrictStr = "display bgp routing-table {target} | no-more"
-    ping: StrictStr = "ping -c 5 -a {source} {target}"
-    traceroute: StrictStr = "tracert -q 1 -f 1 -a {source} {target}"
+    ping: StrictStr = "ping -t 500 -c 5 -a {source} {target}"
+    traceroute: StrictStr = "tracert -w 500 -q 1 -f 1 -a {source} {target}"
 
 
 class _IPv6(CommandSet):
@@ -23,8 +23,8 @@ class _IPv6(CommandSet):
     bgp_community: StrictStr = "display bgp ipv6 routing-table community {target} | no-more"
     bgp_aspath: StrictStr = "display bgp ipv6 routing-table regular-expression {target}"
     bgp_route: StrictStr = "display bgp ipv6 routing-table {target} | no-more"
-    ping: StrictStr = "ping ipv6 -c 5 -a {source} {target}"
-    traceroute: StrictStr = "tracert ipv6 -q 1 -f 1 -a {source} {target}"
+    ping: StrictStr = "ping -t 500 ipv6 -c 5 -a {source} {target}"
+    traceroute: StrictStr = "tracert -w 500 ipv6 -q 1 -f 1 -a {source} {target}"
 
 
 class _VPNIPv4(CommandSet):
@@ -33,8 +33,8 @@ class _VPNIPv4(CommandSet):
     bgp_community: StrictStr = "display bgp vpnv4 vpn-instance {vrf} routing-table community {target} | no-more"
     bgp_aspath: StrictStr = "display bgp vpnv4 vpn-instance {vrf} routing-table regular-expression {target}"
     bgp_route: StrictStr = "display bgp vpnv4 vpn-instance {vrf} routing-table {target} | no-more"
-    ping: StrictStr = "ping -vpn-instance {vrf} -c 5 -a {source} {target}"
-    traceroute: StrictStr = "tracert -q 1 -f 1 -vpn-instance {vrf} -a {source} {target}"
+    ping: StrictStr = "ping -t 500 -vpn-instance {vrf} -c 5 -a {source} {target}"
+    traceroute: StrictStr = "tracert -w 500 -q 1 -f 1 -vpn-instance {vrf} -a {source} {target}"
 
 
 class _VPNIPv6(CommandSet):
@@ -43,8 +43,8 @@ class _VPNIPv6(CommandSet):
     bgp_community: StrictStr = "display bgp vpnv6 vpn-instance {vrf} routing-table community {target} | no-more"
     bgp_aspath: StrictStr = "display bgp vpnv6 vpn-instance {vrf} routing-table regular-expression {target}"
     bgp_route: StrictStr = "display bgp vpnv6 vpn-instance {vrf} routing-table {target} | no-more"
-    ping: StrictStr = "ping vpnv6 vpn-instance {vrf} -c 5 -a {source} {target}"
-    traceroute: StrictStr = "tracert -q 1 -f 1 vpn-instance {vrf} -a {source} {target}"
+    ping: StrictStr = "ping -t 500 vpnv6 vpn-instance {vrf} -c 5 -a {source} {target}"
+    traceroute: StrictStr = "tracert -w 500 -q 1 -f 1 vpn-instance {vrf} -a {source} {target}"
 
 
 _structured = CommandGroup(
@@ -52,29 +52,29 @@ _structured = CommandGroup(
         bgp_community="display bgp routing-table community {target} | no-more",
         bgp_aspath="display bgp routing-table regular-expression {target}",
         bgp_route="display bgp routing-table {target} | no-more",
-        ping="ping -c 5 -a {source} {target}",
-        traceroute="tracert -q 1 -f 1 -a {source} {target}",
+        ping="ping -t 500 -c 5 -a {source} {target}",
+        traceroute="tracert -w 500 -q 1 -f 1 -a {source} {target}",
     ),
     ipv6_default=CommandSet(
         bgp_community="display bgp ipv6 routing-table community {target} | no-more",
         bgp_aspath="display bgp ipv6 routing-table regular-expression {target}",
         bgp_route="display bgp ipv6 routing-table {target} | no-more",
-        ping="ping ipv6 -c 5 -a {source} {target}",
-        traceroute="tracert ipv6 -q 1 -f 1 -a {source} {target}",
+        ping="ping -t 500 ipv6 -c 5 -a {source} {target}",
+        traceroute="tracert -w 500 ipv6 -q 1 -f 1 -a {source} {target}",
     ),
     ipv4_vpn=CommandSet(
         bgp_community="display bgp vpnv4 vpn-instance {vrf} routing-table community {target} | no-more",
         bgp_aspath="display bgp vpnv4 vpn-instance {vrf} routing-table regular-expression {target}",
         bgp_route="display bgp vpnv4 vpn-instance {vrf} routing-table {target} | no-more",
-        ping="ping -vpn-instance {vrf} -c 5 -a {source} {target}",
-        traceroute="tracert -q 1 -f 1 -vpn-instance {vrf} -a {source} {target}",
+        ping="ping -t 500 -vpn-instance {vrf} -c 5 -a {source} {target}",
+        traceroute="tracert -w 500 -q 1 -f 1 -vpn-instance {vrf} -a {source} {target}",
     ),
     ipv6_vpn=CommandSet(
         bgp_community="display bgp vpnv6 vpn-instance {vrf} routing-table community {target} | no-more",
         bgp_aspath="display bgp vpnv6 vpn-instance {vrf} routing-table regular-expression {target}",
         bgp_route="display bgp vpnv6 vpn-instance {vrf} routing-table {target} | no-more",
-        ping="ping vpnv6 vpn-instance {vrf} -c 5 -a {source} {target}",
-        traceroute="tracert -q 1 -f 1 vpn-instance {vrf} -a {source} {target}",
+        ping="ping -t 500 vpnv6 vpn-instance {vrf} -c 5 -a {source} {target}",
+        traceroute="tracert -w 500 -q 1 -f 1 vpn-instance {vrf} -a {source} {target}",
     ),
 )
 

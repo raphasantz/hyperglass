@@ -14,7 +14,7 @@ class _IPv4(CommandSet):
     bgp_aspath: StrictStr = 'show route protocol bgp table inet.0 aspath-regex "{target}"'
     bgp_community: StrictStr = "show route protocol bgp table inet.0 community {target}"
     ping: StrictStr = "ping inet {target} count 5 source {source}"
-    traceroute: StrictStr = "traceroute inet {target} wait 1 source {source}"
+    traceroute: StrictStr = "traceroute monitor inet {target} wait 1 source {source}"
 
 
 class _IPv6(CommandSet):
@@ -24,7 +24,17 @@ class _IPv6(CommandSet):
     bgp_aspath: StrictStr = 'show route protocol bgp table inet6.0 aspath-regex "{target}"'
     bgp_community: StrictStr = "show route protocol bgp table inet6.0 community {target}"
     ping: StrictStr = "ping inet6 {target} count 5 source {source}"
-    traceroute: StrictStr = "traceroute inet6 {target} wait 2 source {source}"
+    traceroute: StrictStr = "traceroute monitor inet6 {target} wait 2 source {source}"
+
+
+class _VPNIPv4(CommandSet):
+    """Validation model for non-default ipv6 commands."""
+
+    bgp_route: StrictStr = 'show route protocol bgp table {vrf}.inet.0 {target} best detail | except Label | except Label | except "Next hop type" | except Task | except Address | except "Session Id" | except State | except "Next-hop reference" | except destinations | except "Announcement bits"'
+    bgp_aspath: StrictStr = 'show route protocol bgp table {vrf}.inet.0 aspath-regex "{target}"'
+    bgp_community: StrictStr = "show route protocol bgp table {vrf}.inet.0 community {target}"
+    ping: StrictStr = "ping inet routing-instance {vrf} {target} count 5 source {source}"
+    traceroute: StrictStr = "traceroute monitor inet routing-instance {vrf} {target} wait 1 source {source}"
 
 
 class _VPNIPv4(CommandSet):

@@ -44,7 +44,7 @@ class _VPNIPv4(CommandSet):
     bgp_aspath: StrictStr = 'show route protocol bgp table {vrf}.inet.0 aspath-regex "{target}"'
     bgp_community: StrictStr = "show route protocol bgp table {vrf}.inet.0 community {target}"
     ping: StrictStr = "ping inet routing-instance {vrf} {target} count 5 source {source}"
-    traceroute: StrictStr = "traceroute inet routing-instance {vrf} {target} wait 1 source {source}"
+    traceroute: StrictStr = "traceroute monitor inet routing-instance {vrf} {target} wait 1 source {source}"
 
 
 class _VPNIPv6(CommandSet):
